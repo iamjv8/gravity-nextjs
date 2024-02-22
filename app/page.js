@@ -1,10 +1,18 @@
 import Image from "next/image";
 import styles from "./page.module.css";
+import { Button, Flex } from "antd";
 
 export default function Home() {
   return (
     <main className={styles.main}>
-      <div className={styles.description}>
+      <Flex gap="small" wrap="wrap">
+        <Button type="primary">Primary Button</Button>
+        <Button>Default Button</Button>
+        <Button type="dashed">Dashed Button</Button>
+        <Button type="text">Text Button</Button>
+        <Button type="link">Link Button</Button>
+      </Flex>
+      {/* <div className={styles.description}>
         <p>
           Get started by editing&nbsp;
           <code className={styles.code}>app/page.js</code>
@@ -89,7 +97,7 @@ export default function Home() {
             Instantly deploy your Next.js site to a shareable URL with Vercel.
           </p>
         </a>
-      </div>
+      </div> */}
     </main>
   );
 }
