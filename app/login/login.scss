@@ -1,4 +1,11 @@
-@use 'variable';
+@use "./../variables" as variables;
+
 .main {
-    color: $color-primary;
+    display: flex;
+    justify-content: space-around;
+}
+
+.container {
+    height: 40%;
+    width: 60%;
 }
