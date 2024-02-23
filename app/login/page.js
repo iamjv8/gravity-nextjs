@@ -1,12 +1,7 @@
-import { Button, Flex } from "antd";
-import { Title } from "./login.styled";
+import { Button } from "antd";
 
 const Home = () => {
-  return (
-    <div>
-      <Title>Welcome To Login Page</Title>
-    </div>
-  );
+  return <div className="main">Login Page</div>;
 };
 
 export default Home;
