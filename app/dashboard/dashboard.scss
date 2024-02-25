@@ -1,0 +1,12 @@
+.layout {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
+
+.container {
+  border-radius: 8;
+  overflow: "hidden";
+  width: calc(70% - 8px);
+  max-width: calc(70% - 8px);
+}
