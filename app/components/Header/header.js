@@ -19,28 +19,31 @@ const Header = () => {
       >
         <span>
           <Select
-            defaultValue="lucy"
+            defaultValue="2024"
             style={{
               width: 120,
             }}
             onChange={handleChange}
             options={[
               {
-                value: "jack",
-                label: "Jack",
+                value: "2020",
+                label: "2020",
               },
               {
-                value: "lucy",
-                label: "Lucy",
+                value: "2021",
+                label: "2021",
               },
               {
-                value: "Yiminghe",
-                label: "yiminghe",
+                value: "2022",
+                label: "2022",
               },
               {
-                value: "disabled",
-                label: "Disabled",
-                disabled: true,
+                value: "2023",
+                label: "2023",
+              },
+              {
+                value: "2024",
+                label: "2024",
               },
             ]}
           />
