@@ -4,7 +4,7 @@ import { Flex, Button, Checkbox, Form, Input } from "antd";
 
 import "./login.scss";
 
-const Home = () => {
+const LoginPage = () => {
   const onFinish = (values) => {
     console.log("Success:", values);
   };
@@ -87,4 +87,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default LoginPage;

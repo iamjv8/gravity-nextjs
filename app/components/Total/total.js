@@ -5,7 +5,11 @@ const Total = () => {
   return (
     <Flex align="center" vertical={false} className="total-section">
       <Statistic
-        title="Net Total"
+        title={
+          <span style={{ color: "black", fontSize: "16px", fontWeight: 600 }}>
+            Net Total
+          </span>
+        }
         value={112893}
         precision={2}
         suffix={<span className="details"> +1.3% from last year</span>}
