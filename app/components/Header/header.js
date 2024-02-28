@@ -8,7 +8,7 @@ const Header = () => {
   };
   return (
     <Flex align="center" vertical={false} className="header-section">
-      <Title level={3} className="title">
+      <Title level={2} className="title">
         Summary
       </Title>
       <Flex
