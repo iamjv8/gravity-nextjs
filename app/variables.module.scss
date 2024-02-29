@@ -1,0 +1,15 @@
+$color-primary: #040404;
+$color-secondary: #706a6a;
+$color-red: #d15342;
+$color-green: #28a041;
+$color-purpule: #5944db;
+$color-ember: #f4b511;
+
+:export {
+    primaryColor: $color-primary;
+    secondaryColor: $color-secondary;
+    redColor: $color-red;
+    greenColor: $color-green;
+    purpuleColor: $color-purpule;
+    emberColor: $color-ember;   
+}

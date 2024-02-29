@@ -1,0 +1,15 @@
+@use "./../variables.module.scss" as variables;
+
+.main {
+  display: flex;
+  justify-content: space-around;
+}
+
+.container {
+  margin-top: 10%;
+}
+
+.login-form {
+  height: 300px;
+  width: 300px;
+}

@@ -10,12 +10,14 @@
   },
   "dependencies": {
     "@ant-design/nextjs-registry": "^1.0.0",
+    "@authorizerdev/authorizer-react": "^1.2.0",
     "next": "14.1.0",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
     "eslint": "^8",
-    "eslint-config-next": "14.1.0"
+    "eslint-config-next": "14.1.0",
+    "sass": "^1.71.1"
   }
 }
