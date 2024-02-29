@@ -1,6 +1,5 @@
 "use client";
-import { Card } from "antd";
-import { Flex, Button, Checkbox, Form, Input } from "antd";
+import { Flex, Button, Checkbox, Form, Input, Typography } from "antd";
 
 import "./login.scss";
 
@@ -11,77 +10,65 @@ const LoginPage = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+  const { Title } = Typography;
   return (
     <div className="main">
       <div className="container">
-        <Card>
-          <Flex justify="space-between" vertical align="flex-middle">
-            <Form
-              name="basic"
-              labelCol={{
-                span: 8,
-              }}
+        <Flex justify="space-between" vertical align="flex-middle">
+          <Title level={2} styles={{ h2: { marginBottom: "2rem" } }}>
+            Login
+          </Title>
+          <Form
+            name="basic"
+            initialValues={{
+              remember: true,
+            }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            className="login-form"
+          >
+            <Form.Item
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your username!",
+                },
+              ]}
+            >
+              <Input placeholder="Username" size="large" />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <Input.Password placeholder="Password" size="large" />
+            </Form.Item>
+
+            <Form.Item
+              name="remember"
+              valuePropName="checked"
               wrapperCol={{
                 span: 16,
               }}
-              initialValues={{
-                remember: true,
-              }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              autoComplete="off"
-              className="login-form"
             >
-              <Form.Item
-                label="Username"
-                name="username"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your username!",
-                  },
-                ]}
-              >
-                <Input />
-              </Form.Item>
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
 
-              <Form.Item
-                label="Password"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Please input your password!",
-                  },
-                ]}
-              >
-                <Input.Password />
-              </Form.Item>
-
-              <Form.Item
-                name="remember"
-                valuePropName="checked"
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
-              >
-                <Checkbox>Remember me</Checkbox>
-              </Form.Item>
-
-              <Form.Item
-                wrapperCol={{
-                  offset: 8,
-                  span: 16,
-                }}
-              >
-                <Button type="primary" htmlType="submit">
-                  Submit
-                </Button>
-              </Form.Item>
-            </Form>
-          </Flex>
-        </Card>
+            <Form.Item>
+              <Button type="primary" htmlType="submit" block>
+                Login
+              </Button>
+            </Form.Item>
+          </Form>
+        </Flex>
       </div>
     </div>
   );
