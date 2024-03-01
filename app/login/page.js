@@ -1,7 +1,14 @@
 "use client";
+import { useEffect } from "react";
+import {
+  AuthorizerProvider,
+  Authorizer,
+} from "@authorizerdev/authorizer-react";
 import { Flex, Button, Checkbox, Form, Input, Typography } from "antd";
 
 import "./login.scss";
+
+const Profile = () => {};
 
 const LoginPage = () => {
   const onFinish = (values) => {
@@ -10,7 +17,13 @@ const LoginPage = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
   const { Title } = Typography;
+
+  // let redirectURL = "";
+  // useEffect(() => {
+  //   redirectURL = `${window.location.origin}/dashboard`;
+  // });
   return (
     <div className="main">
       <div className="container">
@@ -18,7 +31,18 @@ const LoginPage = () => {
           <Title level={2} styles={{ h2: { marginBottom: "2rem" } }}>
             Login
           </Title>
-          <Form
+          <AuthorizerProvider
+            config={{
+              authorizerURL: "https://authorizer-oknc.onrender.com",
+              redirectURL: "https://gravity-nextjs.onrender.com",
+              clientID: "13371d2a-ba7e-46f3-bb4d-e23d16b0b5a6", // obtain your client id from authorizer dashboard
+              extraHeaders: {}, // Optional JSON object to pass extra headers in each authorizer requests.
+            }}
+          >
+            <Authorizer />
+            <Profile />
+          </AuthorizerProvider>
+          {/* <Form
             name="basic"
             initialValues={{
               remember: true,
@@ -67,7 +91,7 @@ const LoginPage = () => {
                 Login
               </Button>
             </Form.Item>
-          </Form>
+          </Form> */}
         </Flex>
       </div>
     </div>

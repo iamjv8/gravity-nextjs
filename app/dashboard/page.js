@@ -8,7 +8,7 @@ import variables from "./../variables.module.scss";
 import DataTable from "../components/Table/table";
 import "./dashboard.scss";
 import Statistics from "../components/Statistics/statistics";
-
+import { useAuthorizer } from "@authorizerdev/authorizer-react";
 const statisticsData = [
   {
     title: "Income",
@@ -42,6 +42,11 @@ const statisticsData = [
 
 const { Content } = Layout;
 const Dashboard = () => {
+  const { user } = useAuthorizer();
+
+  if (user) {
+    console.log(user.email);
+  }
   return (
     <div className="layout">
       <Content className="container">
