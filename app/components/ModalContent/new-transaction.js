@@ -8,6 +8,7 @@ import {
   Tooltip,
   Select,
   Button,
+  message,
 } from "antd";
 import {
   ArrowDownOutlined,
@@ -18,7 +19,7 @@ import {
 import variables from "./../../variables.module.scss";
 
 import "./new-transaction.scss";
-const NewTransaction = () => {
+const NewTransaction = ({ callback }) => {
   const [selectedSegment, setSelectedSegment] = useState("expense");
   const onDateChange = (date, dateString) => {
     console.log(date, dateString);
@@ -28,6 +29,11 @@ const NewTransaction = () => {
   };
   const onCategoryChange = (value) => {
     console.log(value);
+  };
+
+  const addTransaction = (value) => {
+    message.success("Transaction added successfully.!");
+    callback();
   };
   return (
     <Flex vertical className="new-transaction-wrapper">
@@ -140,8 +146,9 @@ const NewTransaction = () => {
         style={{
           background: variables.primaryColor,
         }}
+        onClick={addTransaction}
       >
-        Primary
+        Add Transaction
       </Button>
     </Flex>
   );

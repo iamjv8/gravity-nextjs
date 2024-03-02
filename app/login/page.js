@@ -1,6 +1,15 @@
 "use client";
 import { useState } from "react";
-import { Flex, Button, Checkbox, Form, Input, Typography, Modal } from "antd";
+import {
+  Flex,
+  Button,
+  Checkbox,
+  Form,
+  Input,
+  InputNumber,
+  Typography,
+  Modal,
+} from "antd";
 import "./login.scss";
 import Signup from "./signupForm";
 
@@ -41,15 +50,20 @@ const LoginPage = () => {
             className="login-form"
           >
             <Form.Item
-              name="username"
+              name="mobile"
               rules={[
                 {
                   required: true,
-                  message: "Please input your username!",
+                  message: "Please input your mobile number!",
                 },
               ]}
             >
-              <Input placeholder="Username" size="large" />
+              {/* <InputNumber placeholder="mobile" size="large" /> */}
+              <InputNumber
+                placeholder="Mobile Number"
+                size="large"
+                controls={false}
+              />
             </Form.Item>
 
             <Form.Item

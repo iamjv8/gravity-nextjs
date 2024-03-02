@@ -1,4 +1,4 @@
-import { Button, Form, Input } from "antd";
+import { Button, Form, Input, InputNumber } from "antd";
 
 const Signup = () => {
   const onFinish = (values) => {
@@ -20,15 +20,30 @@ const Signup = () => {
         className="signup-form"
       >
         <Form.Item
-          name="username"
+          name="name"
           rules={[
             {
               required: true,
-              message: "Please input your username!",
+              message: "Please input your full name!",
             },
           ]}
         >
-          <Input placeholder="Username" size="large" />
+          <Input placeholder="Full Name" size="large" />
+        </Form.Item>
+        <Form.Item
+          name="mobile"
+          rules={[
+            {
+              required: true,
+              message: "Please input your mobile number!",
+            },
+          ]}
+        >
+          <InputNumber
+            placeholder="Mobile Number"
+            size="large"
+            controls={false}
+          />
         </Form.Item>
 
         <Form.Item
@@ -48,7 +63,7 @@ const Signup = () => {
           rules={[
             {
               required: true,
-              message: "Please Confirm password!",
+              message: "Please confirm password!",
             },
           ]}
         >
