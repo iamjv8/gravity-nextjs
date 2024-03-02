@@ -1,36 +1,103 @@
 "use client";
-import {
-  AuthorizerProvider,
-  Authorizer,
-} from "@authorizerdev/authorizer-react";
-import { useRouter } from "next/navigation";
-import { Flex, Typography } from "antd";
+import { useState } from "react";
+import { Flex, Button, Checkbox, Form, Input, Typography, Modal } from "antd";
 import "./login.scss";
+import Signup from "./signupForm";
 
 const LoginPage = () => {
-  const router = useRouter();
-  const onLoginSuccess = (values) => {
-    router.push("/dashboard");
+  const { Title, Text } = Typography;
+  const [open, setOpen] = useState(false);
+
+  const showModal = () => {
+    setOpen(true);
   };
 
-  const { Title } = Typography;
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+  const onFinish = (values) => {
+    console.log("Success:", values);
+  };
+  const onFinishFailed = (errorInfo) => {
+    console.log("Failed:", errorInfo);
+  };
+
   return (
     <div className="main">
       <div className="container">
         <Flex justify="space-between" vertical align="flex-middle">
-          <Title level={2} styles={{ h2: { marginBottom: "2rem" } }}>
+          <Title level={2} styles={{ marginBottom: "2rem" }}>
             Login
           </Title>
-          <AuthorizerProvider
-            config={{
-              authorizerURL: "https://authorizer-oknc.onrender.com",
-              redirectURL: "https://gravity-nextjs.onrender.com/dashboard",
-              clientID: "13371d2a-ba7e-46f3-bb4d-e23d16b0b5a6", // obtain your client id from authorizer dashboard
-              extraHeaders: {}, // Optional JSON object to pass extra headers in each authorizer requests.
+          <Form
+            name="login"
+            initialValues={{
+              remember: true,
             }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            className="login-form"
           >
-            <Authorizer onLogin={onLoginSuccess} />
-          </AuthorizerProvider>
+            <Form.Item
+              name="username"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your username!",
+                },
+              ]}
+            >
+              <Input placeholder="Username" size="large" />
+            </Form.Item>
+
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: "Please input your password!",
+                },
+              ]}
+            >
+              <Input.Password placeholder="Password" size="large" />
+            </Form.Item>
+
+            <Form.Item
+              name="remember"
+              valuePropName="checked"
+              wrapperCol={{
+                span: 16,
+              }}
+            >
+              <Checkbox>Remember me</Checkbox>
+            </Form.Item>
+
+            <Form.Item>
+              <Button type="primary" htmlType="submit" block>
+                Login
+              </Button>
+            </Form.Item>
+            <Text>
+              Don't have an account,{" "}
+              <span
+                type="link"
+                onClick={showModal}
+                style={{ color: "#1677ff", cursor: "pointer" }}
+              >
+                create new account
+              </span>
+            </Text>
+            <Modal
+              title="Create Account"
+              open={open}
+              onCancel={handleCancel}
+              footer={null}
+            >
+              <Signup />
+            </Modal>
+          </Form>
         </Flex>
       </div>
     </div>
