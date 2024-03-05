@@ -91,7 +91,7 @@ const HeaderRow = () => {
         onCancel={handleCancel}
         footer={null}
       >
-        <NewTransaction />
+        <NewTransaction callback={handleCancel} />
       </Modal>
     </span>
   );

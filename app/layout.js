@@ -1,8 +1,9 @@
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
+import { ConfigProvider } from "antd";
 import "./globals.scss";
 
-const inter = Inter({ subsets: ["latin"] });
+const nunito = Nunito({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Create Next App",
@@ -12,8 +13,16 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
-        <AntdRegistry>{children}</AntdRegistry>
+      <body className={nunito.className}>
+        <ConfigProvider
+          theme={{
+            token: {
+              fontFamily: "inherit",
+            },
+          }}
+        >
+          <AntdRegistry>{children}</AntdRegistry>
+        </ConfigProvider>
       </body>
     </html>
   );
