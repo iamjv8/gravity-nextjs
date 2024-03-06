@@ -94,7 +94,7 @@ const LoginPage = () => {
               </Button>
             </Form.Item>
             <Text>
-              Don't have an account,{" "}
+              {`Don't have an account,`}{" "}
               <span
                 type="link"
                 onClick={showModal}
