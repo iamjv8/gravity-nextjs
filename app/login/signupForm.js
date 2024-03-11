@@ -1,7 +1,9 @@
 import { Button, Form, Input, InputNumber } from "antd";
+import { signup } from "../services/api";
 
 const Signup = () => {
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
+    const data = await signup(values);
     console.log("Success:", values);
   };
   const onFinishFailed = (errorInfo) => {

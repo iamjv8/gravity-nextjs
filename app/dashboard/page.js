@@ -5,8 +5,10 @@ import Header from "../components/Header/header";
 import Total from "../components/Total/total";
 import variables from "./../variables.module.scss";
 import DataTable from "../components/Table/table";
-import "./dashboard.scss";
 import Statistics from "../components/Statistics/statistics";
+import { getAllTypes, getAllCategories } from "../services/api";
+
+import "./dashboard.scss";
 const statisticsData = [
   {
     title: "Income",
@@ -40,9 +42,20 @@ const statisticsData = [
 
 const { Content } = Layout;
 const Dashboard = () => {
+  const getTypes = () => {
+    return getAllTypes();
+  };
+
+  const getCategories = () => {
+    return getAllCategories("/user/12345/permissions");
+  };
+
+  Promise.all([getTypes(), getCategories()]).then(([types, categories]) => {
+    // console.log(types, categories);
+  });
   return (
     <div className="layout">
-      <Content className="container">
+      <Content className="dashboard-container">
         <Menu />
         <Header />
         <Total />
