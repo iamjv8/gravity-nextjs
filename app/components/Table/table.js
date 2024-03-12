@@ -55,9 +55,9 @@ const data = [
     amount: 80000,
   },
 ];
-const DataTable = () => {
+const DataTable = (props) => {
   const { Title } = Typography;
-
+  const { types, categories } = props;
   return (
     <>
       <Flex align="center" vertical={false} className="header-section">
@@ -70,7 +70,7 @@ const DataTable = () => {
           gap="middle"
           className="header-section"
         >
-          <HeaderRow />
+          <HeaderRow types={types} categories={categories} />
         </Flex>
       </Flex>
       <Table columns={columns} dataSource={data} />

@@ -3,7 +3,9 @@ import { Select, Button, Modal } from "antd";
 import { PlusOutlined } from "@ant-design/icons";
 import NewTransaction from "../ModalContent/new-transaction";
 
-const HeaderRow = () => {
+const HeaderRow = (props) => {
+  const { types, categories } = props;
+  console.log(types, categories);
   const [open, setOpen] = useState(false);
 
   const showModal = () => {

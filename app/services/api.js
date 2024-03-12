@@ -1,9 +1,10 @@
+import { redirect } from "next/navigation";
 import axios from "axios";
+
 const api = axios.create({
   baseURL: "http://localhost:3000/", // our API base URL
 });
 
-// Request interceptor for adding the bearer token
 api.interceptors.request.use(
   (config) => {
     if (typeof window !== "undefined") {
@@ -16,6 +17,17 @@ api.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
+  }
+);
+
+api.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response.status === 403) {
+      window.location.href = "/";
+    }
   }
 );
 
