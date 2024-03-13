@@ -19,7 +19,7 @@ import {
 import variables from "./../../variables.module.scss";
 
 import "./new-transaction.scss";
-const NewTransaction = ({ callback }) => {
+const NewTransaction = ({ callback, categories }) => {
   const [selectedSegment, setSelectedSegment] = useState("expense");
   const onDateChange = (date, dateString) => {
     console.log(date, dateString);
@@ -116,28 +116,7 @@ const NewTransaction = ({ callback }) => {
         size="large"
         placeholder="Category"
         onChange={onCategoryChange}
-        options={[
-          {
-            value: "2020",
-            label: "2020",
-          },
-          {
-            value: "2021",
-            label: "2021",
-          },
-          {
-            value: "2022",
-            label: "2022",
-          },
-          {
-            value: "2023",
-            label: "2023",
-          },
-          {
-            value: "2024",
-            label: "2024",
-          },
-        ]}
+        options={categories}
       />
       <Button
         type="primary"

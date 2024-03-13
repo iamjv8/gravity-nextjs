@@ -5,7 +5,7 @@ import NewTransaction from "../ModalContent/new-transaction";
 
 const HeaderRow = (props) => {
   const { types, categories } = props;
-  console.log(types, categories);
+  // console.log(types, categories);
   const [open, setOpen] = useState(false);
 
   const showModal = () => {
@@ -16,6 +16,22 @@ const HeaderRow = (props) => {
     console.log("Clicked cancel button");
     setOpen(false);
   };
+
+  const formatData = (data, labelKey) => {
+    const formattedData = data.map((item) => {
+      return {
+        value: item.id,
+        label: item[labelKey],
+      };
+    });
+    formattedData.sort((a, b) =>
+      a.label > b.label ? 1 : b.label > a.label ? -1 : 0
+    );
+    return formattedData;
+  };
+
+  console.log(formatData(categories, "category_name"));
+
   return (
     <span>
       <Select
@@ -24,28 +40,7 @@ const HeaderRow = (props) => {
           width: 120,
         }}
         //   onChange={handleChange}
-        options={[
-          {
-            value: "2020",
-            label: "2020",
-          },
-          {
-            value: "2021",
-            label: "2021",
-          },
-          {
-            value: "2022",
-            label: "2022",
-          },
-          {
-            value: "2023",
-            label: "2023",
-          },
-          {
-            value: "2024",
-            label: "2024",
-          },
-        ]}
+        options={formatData(types, "type")}
       />
       &nbsp;
       <Select
@@ -54,28 +49,7 @@ const HeaderRow = (props) => {
           width: 120,
         }}
         //   onChange={handleChange}
-        options={[
-          {
-            value: "2020",
-            label: "2020",
-          },
-          {
-            value: "2021",
-            label: "2021",
-          },
-          {
-            value: "2022",
-            label: "2022",
-          },
-          {
-            value: "2023",
-            label: "2023",
-          },
-          {
-            value: "2024",
-            label: "2024",
-          },
-        ]}
+        options={formatData(categories, "category_name")}
       />
       &nbsp;
       <Button
@@ -93,7 +67,10 @@ const HeaderRow = (props) => {
         onCancel={handleCancel}
         footer={null}
       >
-        <NewTransaction callback={handleCancel} />
+        <NewTransaction
+          callback={handleCancel}
+          categories={formatData(categories, "category_name")}
+        />
       </Modal>
     </span>
   );

@@ -20,17 +20,6 @@ api.interceptors.request.use(
   }
 );
 
-api.interceptors.response.use(
-  (response) => {
-    return response;
-  },
-  (error) => {
-    if (error.response.status === 403) {
-      window.location.href = "/";
-    }
-  }
-);
-
 export const signup = (body) => {
   return api.post("/signup", body);
 };

@@ -1,5 +1,5 @@
 "use client";
-import { Layout, Flex } from "antd";
+import { Layout, Flex, Spin } from "antd";
 import { useRouter } from "next/navigation";
 import Menu from "../components/Menu/menu";
 import Header from "../components/Header/header";
@@ -17,6 +17,7 @@ const Dashboard = () => {
   const router = useRouter();
   const [allTypes, setAllTypes] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const statisticsData = [
     {
@@ -48,34 +49,26 @@ const Dashboard = () => {
       titleColor: variables.emberColor,
     },
   ];
-  const fetchData = async () => {
-    const typeResponse = await getAllTypes();
-    const categoryResponse = await getAllCategories();
-    // if (
-    //   typeResponse.response.status === 403 ||
-    //   categoryResponse.response.status === 403
-    // ) {
-    //   router.replace("/login");
-    // }
-    setAllTypes(typeResponse.data);
-    setAllCategories(categoryResponse.data);
-  };
 
   useEffect(() => {
-    fetchData();
+    setIsLoading(true);
+    Promise.all([getAllTypes(), getAllCategories()]).then(
+      ([typeResponse, categoryResponse]) => {
+        setAllTypes(typeResponse.data);
+        setAllCategories(categoryResponse.data);
+        setIsLoading(false);
+      },
+      (error) => {
+        if (error.response.status === 403) {
+          router.replace("/login");
+        }
+      }
+    );
   }, []);
 
-  // Promise.all([getTypes(), getCategories()]).then(
-  //   ([types, categories]) => {
-
-  //   },
-  //   (error) => {
-  //     if (error.response.status === 403) {
-  //       router.replace("/login");
-  //     }
-  //   }
-  // );
-  return (
+  return isLoading ? (
+    <Spin fullscreen="true" size="large" />
+  ) : (
     <div className="layout">
       <Content className="dashboard-container">
         <Menu />
