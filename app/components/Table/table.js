@@ -25,39 +25,9 @@ const columns = [
     key: "amount",
   },
 ];
-const data = [
-  {
-    key: "1",
-    description: "Car Petrol",
-    type: "expense",
-    category: "Car",
-    amount: 2300,
-  },
-  {
-    key: "2",
-    description: "Vegitables",
-    type: "expense",
-    category: "Grocery",
-    amount: 250,
-  },
-  {
-    key: "3",
-    description: "Light Bill",
-    type: "expense",
-    category: "Essentials",
-    amount: 1200,
-  },
-  {
-    key: "4",
-    description: "Salary",
-    type: "income",
-    category: "Salary",
-    amount: 80000,
-  },
-];
 const DataTable = (props) => {
   const { Title } = Typography;
-  const { types, categories } = props;
+  const { types, categories, transactions, transactionTrigger } = props;
   return (
     <>
       <Flex align="center" vertical={false} className="header-section">
@@ -70,10 +40,14 @@ const DataTable = (props) => {
           gap="middle"
           className="header-section"
         >
-          <HeaderRow types={types} categories={categories} />
+          <HeaderRow
+            types={types}
+            categories={categories}
+            transactionTrigger={transactionTrigger}
+          />
         </Flex>
       </Flex>
-      <Table columns={columns} dataSource={data} />
+      <Table columns={columns} dataSource={transactions} dataIndex="id" />
     </>
   );
 };

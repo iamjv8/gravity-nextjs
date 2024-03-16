@@ -7,7 +7,11 @@ import Total from "../components/Total/total";
 import variables from "./../variables.module.scss";
 import DataTable from "../components/Table/table";
 import Statistics from "../components/Statistics/statistics";
-import { getAllTypes, getAllCategories } from "../services/api";
+import {
+  getAllTypes,
+  getAllCategories,
+  getAllTransactions,
+} from "../services/api";
 
 import "./dashboard.scss";
 import { useEffect, useState } from "react";
@@ -17,6 +21,8 @@ const Dashboard = () => {
   const router = useRouter();
   const [allTypes, setAllTypes] = useState([]);
   const [allCategories, setAllCategories] = useState([]);
+  const [allTransactions, setAllTransactions] = useState([]);
+  const [transactionTrigger, setTransactionTrigger] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
   const statisticsData = [
@@ -52,7 +58,7 @@ const Dashboard = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    Promise.all([getAllTypes(), getAllCategories()]).then(
+    Promise.all([getAllTypes(), getAllCategories(), ,]).then(
       ([typeResponse, categoryResponse]) => {
         setAllTypes(typeResponse.data);
         setAllCategories(categoryResponse.data);
@@ -60,11 +66,24 @@ const Dashboard = () => {
       },
       (error) => {
         if (error.response.status === 403) {
-          router.replace("/login");
+          router.replace("/");
         }
       }
     );
   }, []);
+
+  useEffect(() => {
+    const getTransactions = async () => {
+      setIsLoading(true);
+      await getAllTransactions({ user_id: localStorage.getItem("user") }).then(
+        (transactionsResponse) => {
+          setAllTransactions(transactionsResponse.data);
+          setIsLoading(false);
+        }
+      );
+    };
+    getTransactions();
+  }, [transactionTrigger]);
 
   return isLoading ? (
     <Spin fullscreen="true" size="large" />
@@ -77,7 +96,12 @@ const Dashboard = () => {
         <Flex align="center" vertical={false} justify="space-between">
           <Statistics statisticsData={statisticsData} />
         </Flex>
-        <DataTable types={allTypes} categories={allCategories} />
+        <DataTable
+          types={allTypes}
+          categories={allCategories}
+          transactions={allTransactions}
+          transactionTrigger={() => setTransactionTrigger(!transactionTrigger)}
+        />
       </Content>
     </div>
   );

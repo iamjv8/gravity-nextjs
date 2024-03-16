@@ -35,3 +35,11 @@ export const getAllTypes = () => {
 export const getAllCategories = () => {
   return api.get("/category");
 };
+
+export const addTransaction = (body) => {
+  return api.post("/addTransaction", body);
+};
+
+export const getAllTransactions = (body) => {
+  return api.post("/getTransaction", body);
+};

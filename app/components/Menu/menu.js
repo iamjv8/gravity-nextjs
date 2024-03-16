@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Flex, Button, Avatar } from "antd";
+import { useRouter } from "next/navigation";
+import { Flex, Button, Avatar, Drawer } from "antd";
 import {
   CodeSandboxOutlined,
   HomeOutlined,
@@ -9,8 +10,20 @@ import {
 import "./menu.scss";
 
 const Menu = () => {
+  const router = useRouter();
   const [selectedMenuItem, selectMenu] = useState(0);
-
+  const [open, setOpen] = useState(false);
+  const showDrawer = () => {
+    setOpen(true);
+  };
+  const onClose = () => {
+    setOpen(false);
+  };
+  const logout = () => {
+    localStorage.removeItem("token");
+    setOpen(false);
+    router.replace("/");
+  };
   return (
     <Flex align="center" vertical={false} className="menu">
       <CodeSandboxOutlined className="logo" />
@@ -37,7 +50,15 @@ const Menu = () => {
             Networth
           </Button>
         </span>
-        <Avatar src="https://api.dicebear.com/7.x/miniavs/svg?seed=2" />
+        <Avatar
+          src="https://api.dicebear.com/7.x/miniavs/svg?seed=2"
+          onClick={showDrawer}
+        />
+        <Drawer title="Welcome User" onClose={onClose} open={open}>
+          <Button variant="outline" onClick={logout} danger>
+            Logout
+          </Button>
+        </Drawer>
       </Flex>
     </Flex>
   );

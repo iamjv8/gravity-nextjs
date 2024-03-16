@@ -4,9 +4,9 @@ import { PlusOutlined } from "@ant-design/icons";
 import NewTransaction from "../ModalContent/new-transaction";
 
 const HeaderRow = (props) => {
-  const { types, categories } = props;
-  // console.log(types, categories);
+  const { types, categories, transactionTrigger } = props;
   const [open, setOpen] = useState(false);
+  const [formResetTrigger, setFormResetTrigger] = useState(0);
 
   const showModal = () => {
     setOpen(true);
@@ -14,6 +14,7 @@ const HeaderRow = (props) => {
 
   const handleCancel = () => {
     console.log("Clicked cancel button");
+    setFormResetTrigger((formResetTrigger) => formResetTrigger + 1);
     setOpen(false);
   };
 
@@ -29,8 +30,6 @@ const HeaderRow = (props) => {
     );
     return formattedData;
   };
-
-  console.log(formatData(categories, "category_name"));
 
   return (
     <span>
@@ -70,6 +69,8 @@ const HeaderRow = (props) => {
         <NewTransaction
           callback={handleCancel}
           categories={formatData(categories, "category_name")}
+          trigger={formResetTrigger}
+          transactionTrigger={transactionTrigger}
         />
       </Modal>
     </span>

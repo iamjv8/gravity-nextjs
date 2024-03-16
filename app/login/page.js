@@ -34,6 +34,7 @@ const LoginPage = () => {
     setIsLoading(true);
     const response = await login(values);
     localStorage.setItem("token", response.data.token);
+    localStorage.setItem("user", response.data.user_id);
     router.push("/dashboard");
     setIsLoading(false);
   };
