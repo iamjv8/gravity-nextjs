@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Flex, Typography, Space, Table, Tag } from "antd";
+import { Flex, Typography, Table } from "antd";
 import { TransactionContext } from "@/app/contexts/transaction-context";
 import HeaderRow from "./headerRow";
 

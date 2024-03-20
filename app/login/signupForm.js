@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+import React from "react";
 import { Button, Form, Input, InputNumber } from "antd";
 import { signup } from "../services/api";
 
