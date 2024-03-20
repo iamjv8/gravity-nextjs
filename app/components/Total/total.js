@@ -1,4 +1,5 @@
-import { Flex, Card, Statistic, Progress } from "antd";
+import React from "react";
+import { Flex, Statistic, Progress } from "antd";
 import "./total.scss";
 
 const Total = () => {

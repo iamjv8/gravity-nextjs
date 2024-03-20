@@ -1,5 +1,4 @@
-import Image from "next/image";
-import styles from "./page.module.scss";
+import React from "react";
 import LoginPage from "./login/page";
 
 export default function Home() {

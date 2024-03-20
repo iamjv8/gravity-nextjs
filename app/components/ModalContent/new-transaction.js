@@ -38,7 +38,7 @@ const NewTransaction = ({ callback, categories, trigger }) => {
     }
   }, [trigger]);
 
-  const onDateChange = (date, dateString) => {
+  const onDateChange = (date) => {
     form.setFieldsValue({
       date: date,
     });

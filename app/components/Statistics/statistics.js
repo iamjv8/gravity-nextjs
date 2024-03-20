@@ -1,3 +1,4 @@
+import React from "react";
 import { Statistic, Card } from "antd";
 import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
 import variables from "./../../variables.module.scss";

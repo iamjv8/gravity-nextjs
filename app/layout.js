@@ -1,3 +1,4 @@
+import React from "react";
 import { Nunito } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
