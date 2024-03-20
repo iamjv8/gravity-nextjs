@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Flex,
   Button,
@@ -9,13 +10,17 @@ import {
   InputNumber,
   Typography,
   Modal,
+  Spin,
 } from "antd";
 import "./login.scss";
 import Signup from "./signupForm";
+import { login } from "../services/api";
 
 const LoginPage = () => {
   const { Title, Text } = Typography;
+  const router = useRouter();
   const [open, setOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const showModal = () => {
     setOpen(true);
@@ -25,16 +30,23 @@ const LoginPage = () => {
     console.log("Clicked cancel button");
     setOpen(false);
   };
-  const onFinish = (values) => {
-    console.log("Success:", values);
+  const onFinish = async (values) => {
+    setIsLoading(true);
+    const response = await login(values);
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("user", response.data.user_id);
+    router.push("/dashboard");
+    setIsLoading(false);
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  return (
-    <div className="main">
-      <div className="container">
+  return isLoading ? (
+    <Spin fullscreen="true" size="large" />
+  ) : (
+    <div className="login-wrapper">
+      <div className="login-container">
         <Flex justify="space-between" vertical align="flex-middle">
           <Title level={2} styles={{ marginBottom: "2rem" }}>
             Login

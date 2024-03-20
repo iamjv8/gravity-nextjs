@@ -1,11 +1,11 @@
 @use "./../variables.module.scss" as variables;
 
-.main {
+.login-wrapper {
   display: flex;
   justify-content: space-around;
 }
 
-.container {
+.login-container {
   margin-top: 10%;
 }
 
