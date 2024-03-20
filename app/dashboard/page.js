@@ -1,6 +1,8 @@
 "use client";
+import React from "react";
 import { Layout, Flex, Spin } from "antd";
 import { useRouter } from "next/navigation";
+import { TransactionProvider } from "../contexts/transaction-context";
 import Menu from "../components/Menu/menu";
 import Header from "../components/Header/header";
 import Total from "../components/Total/total";
@@ -58,10 +60,15 @@ const Dashboard = () => {
 
   useEffect(() => {
     setIsLoading(true);
-    Promise.all([getAllTypes(), getAllCategories(), ,]).then(
-      ([typeResponse, categoryResponse]) => {
+    Promise.all([
+      getAllTypes(),
+      getAllCategories(),
+      getAllTransactions({ user_id: localStorage.getItem("user") }),
+    ]).then(
+      ([typeResponse, categoryResponse, transactionsResponse]) => {
         setAllTypes(typeResponse.data);
         setAllCategories(categoryResponse.data);
+        setAllTransactions(transactionsResponse.data);
         setIsLoading(false);
       },
       (error) => {
@@ -72,38 +79,28 @@ const Dashboard = () => {
     );
   }, []);
 
-  useEffect(() => {
-    const getTransactions = async () => {
-      setIsLoading(true);
-      await getAllTransactions({ user_id: localStorage.getItem("user") }).then(
-        (transactionsResponse) => {
-          setAllTransactions(transactionsResponse.data);
-          setIsLoading(false);
-        }
-      );
-    };
-    getTransactions();
-  }, [transactionTrigger]);
-
   return isLoading ? (
     <Spin fullscreen="true" size="large" />
   ) : (
-    <div className="layout">
-      <Content className="dashboard-container">
-        <Menu />
-        <Header />
-        <Total />
-        <Flex align="center" vertical={false} justify="space-between">
-          <Statistics statisticsData={statisticsData} />
-        </Flex>
-        <DataTable
-          types={allTypes}
-          categories={allCategories}
-          transactions={allTransactions}
-          transactionTrigger={() => setTransactionTrigger(!transactionTrigger)}
-        />
-      </Content>
-    </div>
+    <TransactionProvider initialTransactions={allTransactions}>
+      <div className="layout">
+        <Content className="dashboard-container">
+          <Menu />
+          <Header />
+          <Total />
+          <Flex align="center" vertical={false} justify="space-between">
+            <Statistics statisticsData={statisticsData} />
+          </Flex>
+          <DataTable
+            types={allTypes}
+            categories={allCategories}
+            transactionTrigger={() =>
+              setTransactionTrigger(!transactionTrigger)
+            }
+          />
+        </Content>
+      </div>
+    </TransactionProvider>
   );
 };
 

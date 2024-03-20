@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Flex, Typography, Space, Table, Tag } from "antd";
+import { TransactionContext } from "@/app/contexts/transaction-context";
 import HeaderRow from "./headerRow";
 
 const columns = [
@@ -8,6 +9,11 @@ const columns = [
     dataIndex: "description",
     key: "description",
     render: (text) => <b>{text}</b>,
+  },
+  {
+    title: "Amount",
+    dataIndex: "amount",
+    key: "amount",
   },
   {
     title: "Type",
@@ -19,15 +25,11 @@ const columns = [
     dataIndex: "category",
     key: "category",
   },
-  {
-    title: "Amount",
-    dataIndex: "amount",
-    key: "amount",
-  },
 ];
 const DataTable = (props) => {
   const { Title } = Typography;
-  const { types, categories, transactions, transactionTrigger } = props;
+  const { types, categories, transactionTrigger } = props;
+  const transactions = useContext(TransactionContext);
   return (
     <>
       <Flex align="center" vertical={false} className="header-section">
