@@ -58,12 +58,12 @@ const NewTransaction = ({ callback, categories, trigger }) => {
   const addNewTransaction = async (values) => {
     setIsLoading(true);
     const transactionData = {
-      user_id: localStorage.getItem("user"),
+      user_id: parseInt(localStorage.getItem("user")),
       amount: values.amount,
       date: dayjs(values.date).toISOString(),
       type: values.type,
       description: values.description,
-      category: values.category,
+      category_id: values.category,
     };
     const response = await addTransaction(transactionData);
     message.success("Transaction added successfully.!");

@@ -14,18 +14,26 @@ const columns = [
     title: "Amount",
     dataIndex: "amount",
     key: "amount",
-  },
-  {
-    title: "Type",
-    dataIndex: "type",
-    key: "type",
+    render: (text, record) => <>{getAmount(text, record)}</>,
   },
   {
     title: "Category",
     dataIndex: "category",
     key: "category",
   },
+  {
+    title: "Type",
+    dataIndex: "type",
+    key: "type",
+  },
 ];
+const getAmount = (text, record) => {
+  if (record.type === "Expense") {
+    return <span style={{ color: "red" }}>-${text}</span>;
+  } else if (record.type === "Income") {
+    return <span style={{ color: "green" }}>+${text}</span>;
+  }
+};
 const DataTable = (props) => {
   const { Title } = Typography;
   const { types, categories, transactionTrigger } = props;
@@ -49,7 +57,12 @@ const DataTable = (props) => {
           />
         </Flex>
       </Flex>
-      <Table columns={columns} dataSource={transactions} dataIndex="id" />
+      <Table
+        columns={columns}
+        dataSource={transactions}
+        dataIndex="id"
+        key="id"
+      />
     </>
   );
 };

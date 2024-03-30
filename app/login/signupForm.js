@@ -24,7 +24,7 @@ const Signup = () => {
         className="signup-form"
       >
         <Form.Item
-          name="name"
+          name="display_name"
           rules={[
             {
               required: true,
