@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Flex, Typography, Table } from "antd";
-import { TransactionContext } from "@/app/contexts/transaction-context";
 import HeaderRow from "./headerRow";
 
 const columns = [
@@ -34,10 +34,12 @@ const getAmount = (text, record) => {
     return <span style={{ color: "green" }}>+${text}</span>;
   }
 };
-const DataTable = (props) => {
+const DataTable = () => {
   const { Title } = Typography;
-  const { types, categories, transactionTrigger } = props;
-  const transactions = useContext(TransactionContext);
+  const transactions = useSelector(
+    (state) => state.transaction.filteredTransactions
+  );
+
   return (
     <>
       <Flex align="center" vertical={false} className="header-section">
@@ -50,18 +52,14 @@ const DataTable = (props) => {
           gap="middle"
           className="header-section"
         >
-          <HeaderRow
-            types={types}
-            categories={categories}
-            transactionTrigger={transactionTrigger}
-          />
+          <HeaderRow />
         </Flex>
       </Flex>
       <Table
         columns={columns}
         dataSource={transactions}
         dataIndex="id"
-        key="id"
+        rowKey="id"
       />
     </>
   );

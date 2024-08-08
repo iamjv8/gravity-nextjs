@@ -3,6 +3,8 @@ import { Nunito } from "next/font/google";
 import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
 import "./globals.scss";
+import { store } from "./redux/store";
+import { Providers } from "./redux/providers";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
@@ -15,15 +17,17 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <ConfigProvider
-          theme={{
-            token: {
-              fontFamily: "inherit",
-            },
-          }}
-        >
-          <AntdRegistry>{children}</AntdRegistry>
-        </ConfigProvider>
+        <Providers store={store}>
+          <ConfigProvider
+            theme={{
+              token: {
+                fontFamily: "inherit",
+              },
+            }}
+          >
+            <AntdRegistry>{children}</AntdRegistry>
+          </ConfigProvider>
+        </Providers>
       </body>
     </html>
   );

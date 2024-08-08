@@ -1,4 +1,5 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
 import {
   Flex,
   InputNumber,
@@ -18,20 +19,18 @@ import {
   RiseOutlined,
   InfoCircleOutlined,
 } from "@ant-design/icons";
-import { TransactionDispatchContext } from "@/app/contexts/transaction-context";
-
 import variables from "./../../variables.module.scss";
 import dayjs from "dayjs";
-import { addTransaction } from "@/app/services/api";
+import { addTransaction, getAllTransactions } from "@/app/services/api";
+import { setAllTransactions } from "./../../redux/transactionSlice";
 import "./new-transaction.scss";
 
 const NewTransaction = ({ callback, categories, trigger }) => {
   const [selectedSegment, setSelectedSegment] = useState("Expense");
   const [isLoading, setIsLoading] = useState(false);
 
-  const dispatch = useContext(TransactionDispatchContext);
+  const dispatch = useDispatch();
   const [form] = Form.useForm();
-
   useEffect(() => {
     if (trigger) {
       form.resetFields();
@@ -66,9 +65,14 @@ const NewTransaction = ({ callback, categories, trigger }) => {
       category_id: values.category,
     };
     const response = await addTransaction(transactionData);
-    message.success("Transaction added successfully.!");
+    if (response.status === 201) {
+      message.success("Transaction added successfully.!");
+      const transactions = await getAllTransactions({
+        user_id: localStorage.getItem("user"),
+      });
+      dispatch(setAllTransactions(transactions.data));
+    }
     callback();
-    dispatch({ ...response.data.data, type: "added" });
     setIsLoading(false);
   };
 

@@ -11,6 +11,7 @@
 }
 
 .menu-item {
+  font-weight: 400;
 }
 
 .disabled {
@@ -18,5 +19,8 @@
 }
 
 .selected {
-  font-weight: 900;
+  span {
+    font-weight: 900;
+    text-decoration: underline;
+  }
 }
