@@ -17,7 +17,7 @@ const Total = () => {
         className="statistics"
       />
       <Flex justify="end" align="center" gap="middle" className="total-section">
-        <Progress percent={100} />
+        <Progress percent={10} />
       </Flex>
     </Flex>
   );

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "http://localhost:3000/", // our API base URL
+  baseURL: "https://gravity-express.onrender.com/", // our API base URL
 });
 
 api.interceptors.request.use(
@@ -41,4 +41,8 @@ export const addTransaction = (body) => {
 
 export const getAllTransactions = (body) => {
   return api.post("/getTransaction", body);
+};
+
+export const getStatistics = (body) => {
+  return api.post("/dashboardStatistics", body);
 };
