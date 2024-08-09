@@ -1,10 +1,11 @@
 import React from "react";
 import { Statistic, Card } from "antd";
-import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
-import variables from "./../../variables.module.scss";
+// import { ArrowDownOutlined, ArrowUpOutlined } from "@ant-design/icons";
+// import variables from "./../../variables.module.scss";
 import "./statistics.scss";
 const Stat = (props) => {
-  const { title, number, description, progress, titleColor } = props;
+  // const { title, number, description, progress, titleColor } = props;
+  const { title, number, titleColor } = props;
   return (
     <>
       <Statistic
@@ -20,14 +21,14 @@ const Stat = (props) => {
         className="statistics"
         valueStyle={{ fontSize: "18px" }}
       />
-      <span className="statistics-details">
+      {/* <span className="statistics-details">
         {progress ? (
           <ArrowUpOutlined style={{ color: variables.greenColor }} />
         ) : (
           <ArrowDownOutlined style={{ color: variables.redColor }} />
         )}
         {description}
-      </span>
+      </span> */}
     </>
   );
 };
