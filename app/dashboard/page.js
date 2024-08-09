@@ -2,7 +2,7 @@
 import React from "react";
 import { Layout, Flex, Spin } from "antd";
 import { useRouter } from "next/navigation";
-import { TransactionProvider } from "../contexts/transaction-context";
+import { useSelector, useDispatch } from "react-redux";
 import Menu from "../components/Menu/menu";
 import Header from "../components/Header/header";
 import Total from "../components/Total/total";
@@ -14,18 +14,22 @@ import {
   getAllCategories,
   getAllTransactions,
 } from "../services/api";
-
 import "./dashboard.scss";
 import { useEffect, useState } from "react";
+import { setCategories } from "../redux/categorySlice";
+import { setType } from "../redux/typeSlice";
+import {
+  setAllTransactions,
+  setFilteredTransactions,
+} from "../redux/transactionSlice";
 
 const { Content } = Layout;
 const Dashboard = () => {
   const router = useRouter();
-  const [allTypes, setAllTypes] = useState([]);
-  const [allCategories, setAllCategories] = useState([]);
-  const [allTransactions, setAllTransactions] = useState([]);
-  const [transactionTrigger, setTransactionTrigger] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
+  const dispatch = useDispatch();
+  const allCategories = useSelector((state) => state.categories);
+  const allTypes = useSelector((state) => state.type);
 
   const statisticsData = [
     {
@@ -66,9 +70,10 @@ const Dashboard = () => {
       getAllTransactions({ user_id: localStorage.getItem("user") }),
     ]).then(
       ([typeResponse, categoryResponse, transactionsResponse]) => {
-        setAllTypes(typeResponse.data);
-        setAllCategories(categoryResponse.data);
-        setAllTransactions(transactionsResponse.data);
+        dispatch(setType(typeResponse.data));
+        dispatch(setCategories(categoryResponse.data));
+        dispatch(setAllTransactions(transactionsResponse.data));
+        dispatch(setFilteredTransactions(transactionsResponse.data));
         setIsLoading(false);
       },
       (error) => {
@@ -82,25 +87,19 @@ const Dashboard = () => {
   return isLoading ? (
     <Spin fullscreen="true" size="large" />
   ) : (
-    <TransactionProvider initialTransactions={allTransactions}>
-      <div className="layout">
-        <Content className="dashboard-container">
-          <Menu />
-          <Header />
-          <Total />
-          <Flex align="center" vertical={false} justify="space-between">
-            <Statistics statisticsData={statisticsData} />
-          </Flex>
-          <DataTable
-            types={allTypes}
-            categories={allCategories}
-            transactionTrigger={() =>
-              setTransactionTrigger(!transactionTrigger)
-            }
-          />
-        </Content>
-      </div>
-    </TransactionProvider>
+    // <TransactionProvider initialTransactions={allTransactions}>
+    <div className="layout">
+      <Content className="dashboard-container">
+        <Menu />
+        <Header />
+        <Total />
+        <Flex align="center" vertical={false} justify="space-between">
+          <Statistics statisticsData={statisticsData} />
+        </Flex>
+        <DataTable types={allTypes} categories={allCategories} />
+      </Content>
+    </div>
+    // </TransactionProvider>
   );
 };
 

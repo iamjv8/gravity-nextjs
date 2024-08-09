@@ -1,6 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
+import { useSelector } from "react-redux";
 import { Flex, Typography, Table } from "antd";
-import { TransactionContext } from "@/app/contexts/transaction-context";
 import HeaderRow from "./headerRow";
 
 const columns = [
@@ -14,22 +14,32 @@ const columns = [
     title: "Amount",
     dataIndex: "amount",
     key: "amount",
-  },
-  {
-    title: "Type",
-    dataIndex: "type",
-    key: "type",
+    render: (text, record) => <>{getAmount(text, record)}</>,
   },
   {
     title: "Category",
     dataIndex: "category",
     key: "category",
   },
+  {
+    title: "Type",
+    dataIndex: "type",
+    key: "type",
+  },
 ];
-const DataTable = (props) => {
+const getAmount = (text, record) => {
+  if (record.type === "Expense") {
+    return <span style={{ color: "red" }}>-${text}</span>;
+  } else if (record.type === "Income") {
+    return <span style={{ color: "green" }}>+${text}</span>;
+  }
+};
+const DataTable = () => {
   const { Title } = Typography;
-  const { types, categories, transactionTrigger } = props;
-  const transactions = useContext(TransactionContext);
+  const transactions = useSelector(
+    (state) => state.transaction.filteredTransactions
+  );
+
   return (
     <>
       <Flex align="center" vertical={false} className="header-section">
@@ -42,14 +52,15 @@ const DataTable = (props) => {
           gap="middle"
           className="header-section"
         >
-          <HeaderRow
-            types={types}
-            categories={categories}
-            transactionTrigger={transactionTrigger}
-          />
+          <HeaderRow />
         </Flex>
       </Flex>
-      <Table columns={columns} dataSource={transactions} dataIndex="id" />
+      <Table
+        columns={columns}
+        dataSource={transactions}
+        dataIndex="id"
+        rowKey="id"
+      />
     </>
   );
 };
