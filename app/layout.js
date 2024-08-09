@@ -4,7 +4,7 @@ import { AntdRegistry } from "@ant-design/nextjs-registry";
 import { ConfigProvider } from "antd";
 import "./globals.scss";
 import { store } from "./redux/store";
-import { Providers } from "./redux/providers";
+import { Providers } from "./redux/Providers";
 
 const nunito = Nunito({ subsets: ["latin"] });
 
